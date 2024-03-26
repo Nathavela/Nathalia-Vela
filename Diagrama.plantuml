@@ -1,0 +1,43 @@
+@startuml
+
+class Usuario {
+    - nombre: String
+    - listaLibrosReservados: List<Libro>
+    + buscarLibro(titulo: String): Libro
+    + dejarReseña(libro: Libro, reseña: String): void
+}
+
+class Libro {
+    - titulo: String
+    - autor: Autor
+    - categorias: List<Categoria>
+    - reseñas: List<Reseña>
+    + agregarCategoria(categoria: Categoria): void
+    + agregarReseña(resena: Reseña): void
+}
+
+class Reseña {
+    - usuario: Usuario
+    - libro: Libro
+    - comentario: String
+}
+
+class Autor {
+    - nombre: String
+    - listaLibros: List<Libro>
+}
+
+class Categoria {
+    - nombre: String
+    - listaLibros: List<Libro>
+}
+
+Usuario "1" -- "0..*" Libro : tiene
+Usuario "1" -- "0..*" Reseña : deja
+Libro "1" -- "1" Autor : pertenece a
+Libro "1" -- "0..*" Categoria : clasificado en
+Reseña "1" -- "1" Usuario : escrita por
+Autor "1" -- "0..*" Libro : escribe
+Categoria "1" -- "0..*" Libro : tiene
+
+@enduml
